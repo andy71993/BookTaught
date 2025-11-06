@@ -1,0 +1,64 @@
+[
+  {
+    "id": "100m-offers",
+    "title": "$100M Offers",
+    "author": "Alex Hormozi",
+    "description": "Learn how to make offers so good people feel stupid saying no. Discover the frameworks behind Grand Slam Offers.",
+    "coverImage": "/covers/100m-offers.jpg",
+    "slug": "100m-offers",
+    "chapterCount": 1,
+    "published": true,
+    "chapters": [
+      {
+        "chapterNumber": 1,
+        "title": "How We Got Here",
+        "slug": "chapter-1",
+        "isFree": true
+      }
+    ]
+  },
+  {
+    "id": "coming-soon-1",
+    "title": "The Psychology of Money",
+    "author": "Morgan Housel",
+    "description": "Timeless lessons on wealth, greed, and happiness. Coming soon.",
+    "coverImage": "/covers/psychology-money.jpg",
+    "slug": "psychology-money",
+    "chapterCount": 0,
+    "published": false,
+    "chapters": []
+  },
+  {
+    "id": "coming-soon-2",
+    "title": "Atomic Habits",
+    "author": "James Clear",
+    "description": "An easy & proven way to build good habits & break bad ones. Coming soon.",
+    "coverImage": "/covers/atomic-habits.jpg",
+    "slug": "atomic-habits",
+    "chapterCount": 0,
+    "published": false,
+    "chapters": []
+  },
+  {
+    "id": "coming-soon-3",
+    "title": "Deep Work",
+    "author": "Cal Newport",
+    "description": "Rules for focused success in a distracted world. Coming soon.",
+    "coverImage": "/covers/deep-work.jpg",
+    "slug": "deep-work",
+    "chapterCount": 0,
+    "published": false,
+    "chapters": []
+  },
+  {
+    "id": "coming-soon-4",
+    "title": "The Lean Startup",
+    "author": "Eric Ries",
+    "description": "How today's entrepreneurs build continuous innovation. Coming soon.",
+    "coverImage": "/covers/lean-startup.jpg",
+    "slug": "lean-startup",
+    "chapterCount": 0,
+    "published": false,
+    "chapters": []
+  }
+]
