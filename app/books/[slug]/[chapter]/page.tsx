@@ -3,8 +3,10 @@ import { getChapterContent } from '@/lib/books';
 import { notFound } from 'next/navigation';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
+import { getCurrentUser } from '@/lib/auth';
+import Paywall from '@/components/Paywall';
 
-export default function ChapterPage({
+export default async function ChapterPage({
   params,
 }: {
   params: { slug: string; chapter: string };
@@ -16,6 +18,15 @@ export default function ChapterPage({
 
   if (!book || !metadata || !content) {
     notFound();
+  }
+
+  // Check if user has access
+  const user = await getCurrentUser();
+  const hasAccess = metadata.isFree || user?.isPaidMember;
+
+  // Show paywall if no access
+  if (!hasAccess) {
+    return <Paywall />;
   }
 
   return (
