@@ -60,5 +60,29 @@
     "chapterCount": 0,
     "published": false,
     "chapters": []
-  }
+  },
+  {
+    "id": "sell-or-be-sold",
+    "title": "Sell Or Be Sold",
+    "author": "Grant Cardone",
+    "description": "How to get your way in business and in life.",
+    "coverImage": "/covers/sell-or-be-sold.jpg",
+    "slug": "sell-or-be-sold",
+    "chapterCount": 2,
+    "published": true,
+    "chapters": [
+      {
+        "chapterNumber": 1,
+        "title": "Selling-A Way of Life",
+        "slug": "chapter-1",
+        "isFree": true
+      },
+      {
+        "chapterNumber": 2,
+        "title": "Salespeople Make the World Go Round",
+        "slug": "chapter-2",
+        "isFree": false
+      }
+    ]
+  },
 ]
