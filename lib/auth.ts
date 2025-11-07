@@ -53,22 +53,36 @@ export async function updatePassword(newPassword: string) {
 }
 
 export async function getCurrentUser(): Promise<AuthUser | null> {
-  const { data: { user } } = await supabase.auth.getUser();
+  try {
+    const { data: { user }, error } = await supabase.auth.getUser();
 
-  if (!user) return null;
+    if (error || !user) return null;
 
-  // Fetch user profile to get isPaidMember status
-  const { data: profile } = await supabase
-    .from('profiles')
-    .select('is_paid_member')
-    .eq('id', user.id)
-    .single();
+    // Fetch user profile to get isPaidMember status
+    const { data: profile, error: profileError } = await supabase
+      .from('profiles')
+      .select('is_paid_member')
+      .eq('id', user.id)
+      .single();
 
-  return {
-    id: user.id,
-    email: user.email!,
-    isPaidMember: profile?.is_paid_member || false,
-  };
+    if (profileError) {
+      console.error('Profile fetch error:', profileError);
+      return {
+        id: user.id,
+        email: user.email!,
+        isPaidMember: false,
+      };
+    }
+
+    return {
+      id: user.id,
+      email: user.email!,
+      isPaidMember: profile?.is_paid_member || false,
+    };
+  } catch (error) {
+    console.error('getCurrentUser error:', error);
+    return null;
+  }
 }
 
 export async function checkAuth() {
