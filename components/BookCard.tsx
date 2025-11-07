@@ -58,7 +58,7 @@ export default function BookCard({ book }: BookCardProps) {
         {book.published ? (
           <Link
             href={`/books/${book.slug}`}
-            className="block w-full py-3 px-4 bg-blue-600 text-white text-center font-medium rounded-lg hover:bg-blue-700 transition-colors"
+            className="block w-full py-3 px-4 bg-blue-600 text-white text-center font-medium rounded-lg hover:bg-blue-700 active:bg-blue-800 transition-colors touch-manipulation"
           >
             Start Learning
           </Link>
