@@ -37,6 +37,7 @@ export default function ChapterPageClient({
   const [user, setUser] = useState<any>(null);
   const [loading, setLoading] = useState(true);
   const [completed, setCompleted] = useState(false);
+  const [markingComplete, setMarkingComplete] = useState(false);
 
   useEffect(() => {
     async function loadUserAndTrackProgress() {
@@ -68,7 +69,9 @@ export default function ChapterPageClient({
   }, []);
 
   async function handleMarkComplete() {
-    if (!user) return;
+    if (!user || markingComplete) return;
+
+    setMarkingComplete(true);
 
     try {
       const response = await fetch('/api/track-progress', {
@@ -83,9 +86,18 @@ export default function ChapterPageClient({
 
       if (response.ok) {
         setCompleted(true);
+        // Show success feedback
+        setTimeout(() => setMarkingComplete(false), 1000);
+      } else {
+        const data = await response.json();
+        console.error('Failed to mark complete:', data.error);
+        alert('Failed to mark complete. Please try again.');
+        setMarkingComplete(false);
       }
     } catch (error) {
       console.error('Error marking complete:', error);
+      alert('Failed to mark complete. Please try again.');
+      setMarkingComplete(false);
     }
   }
 
@@ -154,10 +166,27 @@ export default function ChapterPageClient({
               <div className="mb-6">
                 <button
                   onClick={handleMarkComplete}
-                  className="w-full sm:w-auto px-6 py-3 bg-green-600 text-white font-medium rounded-lg hover:bg-green-700 transition-colors"
+                  disabled={markingComplete}
+                  className="w-full sm:w-auto px-6 py-3 bg-green-600 text-white font-medium rounded-lg hover:bg-green-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
                 >
-                  ✓ Mark as Complete
+                  {markingComplete ? (
+                    <>
+                      <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white"></div>
+                      <span>Saving...</span>
+                    </>
+                  ) : (
+                    <>
+                      <span>✓</span>
+                      <span>Mark as Complete</span>
+                    </>
+                  )}
                 </button>
+              </div>
+            )}
+
+            {completed && (
+              <div className="mb-6 p-4 bg-green-50 border border-green-200 rounded-lg text-green-700 font-medium">
+                🎉 Chapter completed! Great work!
               </div>
             )}
 

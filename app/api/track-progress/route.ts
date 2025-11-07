@@ -1,19 +1,24 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { getCurrentUser } from '@/lib/auth';
-import { supabase } from '@/lib/supabase';
+import { createClient } from '@/lib/supabase-server';
 
 export async function POST(request: NextRequest) {
   try {
-    const user = await getCurrentUser();
+    const supabase = createClient();
 
-    if (!user) {
+    // Get the authenticated user
+    const { data: { user }, error: authError } = await supabase.auth.getUser();
+
+    if (authError || !user) {
+      console.error('Auth error:', authError);
       return NextResponse.json(
-        { error: 'Unauthorized' },
+        { error: 'Unauthorized - please sign in' },
         { status: 401 }
       );
     }
 
     const { bookId, chapterId, completed } = await request.json();
+
+    console.log('Tracking progress:', { userId: user.id, bookId, chapterId, completed });
 
     // Upsert progress
     const { error } = await supabase
@@ -35,11 +40,12 @@ export async function POST(request: NextRequest) {
     if (error) {
       console.error('Progress tracking error:', error);
       return NextResponse.json(
-        { error: 'Failed to track progress' },
+        { error: 'Failed to track progress: ' + error.message },
         { status: 500 }
       );
     }
 
+    console.log('Progress tracked successfully');
     return NextResponse.json({ success: true });
   } catch (error: any) {
     console.error('Track progress error:', error);
