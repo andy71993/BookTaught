@@ -1,5 +1,9 @@
+'use client';
+
 import Link from 'next/link';
+import Image from 'next/image';
 import { BookMetadata } from '@/lib/books';
+import { useState } from 'react';
 
 interface BookCardProps {
   book: BookMetadata;
@@ -7,16 +11,33 @@ interface BookCardProps {
 
 export default function BookCard({ book }: BookCardProps) {
   const isComingSoon = !book.published;
+  const [imageError, setImageError] = useState(false);
 
   return (
     <div className="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-xl transition-shadow duration-300">
-      <div className="relative aspect-[3/4] bg-gradient-to-br from-blue-100 to-indigo-200 flex items-center justify-center">
+      <div className="relative aspect-[3/4] bg-gradient-to-br from-blue-100 to-indigo-200 flex items-center justify-center overflow-hidden">
         {isComingSoon && (
-          <div className="absolute top-4 right-4 px-3 py-1 bg-yellow-400 text-yellow-900 text-xs font-bold rounded-full">
+          <div className="absolute top-4 right-4 px-3 py-1 bg-yellow-400 text-yellow-900 text-xs font-bold rounded-full z-10">
             Coming Soon
           </div>
         )}
-        <div className="text-6xl">📖</div>
+
+        {!imageError && book.coverImage ? (
+          <Image
+            src={book.coverImage}
+            alt={`${book.title} cover`}
+            fill
+            className="object-cover"
+            onError={() => setImageError(true)}
+          />
+        ) : (
+          <div className="flex flex-col items-center justify-center p-8 text-center">
+            <div className="text-6xl mb-4">📖</div>
+            <div className="text-lg font-bold text-gray-700 px-4">
+              {book.title}
+            </div>
+          </div>
+        )}
       </div>
 
       <div className="p-6">
