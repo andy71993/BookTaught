@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import Image from 'next/image';
 import { getBookBySlug } from '@/lib/books';
 import { notFound } from 'next/navigation';
 
@@ -21,8 +22,25 @@ export default function BookPage({ params }: { params: { slug: string } }) {
 
         <div className="bg-white rounded-xl shadow-lg overflow-hidden mb-8">
           <div className="md:flex">
-            <div className="md:w-1/3 bg-gradient-to-br from-blue-100 to-indigo-200 flex items-center justify-center p-12">
-              <div className="text-8xl">📖</div>
+            <div className="md:w-1/3 bg-gradient-to-br from-blue-100 to-indigo-200 flex items-center justify-center p-12 relative min-h-[400px]">
+              {book.coverImage ? (
+                <div className="relative w-full h-full flex items-center justify-center">
+                  <Image
+                    src={book.coverImage}
+                    alt={`${book.title} cover`}
+                    width={300}
+                    height={450}
+                    className="object-contain rounded-lg shadow-lg"
+                  />
+                </div>
+              ) : (
+                <div className="text-center">
+                  <div className="text-8xl mb-4">📖</div>
+                  <div className="text-xl font-bold text-gray-700 px-4">
+                    {book.title}
+                  </div>
+                </div>
+              )}
             </div>
 
             <div className="md:w-2/3 p-8">
