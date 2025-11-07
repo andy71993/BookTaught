@@ -120,20 +120,23 @@ export default function ChapterPageClient({
 
   return (
     <div className="min-h-screen bg-gray-50">
-      <main className="container mx-auto px-4 py-8 max-w-4xl">
-        <div className="mb-6">
+      <main className="container mx-auto px-4 sm:px-6 py-4 sm:py-8 max-w-4xl">
+        {/* Back button */}
+        <div className="mb-4 sm:mb-6">
           <Link
             href={`/books/${bookSlug}`}
-            className="inline-flex items-center text-blue-600 hover:text-blue-700"
+            className="inline-flex items-center text-blue-600 hover:text-blue-700 text-sm sm:text-base touch-manipulation"
           >
             ← Back to {bookTitle}
           </Link>
         </div>
 
-        <article className="bg-white rounded-xl shadow-lg p-8 md:p-12">
-          <header className="mb-8 pb-8 border-b border-gray-200">
-            <div className="flex items-center space-x-3 mb-4">
-              <span className="text-sm font-medium text-gray-500">
+        {/* Main article */}
+        <article className="bg-white rounded-lg sm:rounded-xl shadow-lg p-5 sm:p-8 md:p-12">
+          {/* Header */}
+          <header className="mb-6 sm:mb-8 pb-6 sm:pb-8 border-b border-gray-200">
+            <div className="flex flex-wrap items-center gap-2 sm:gap-3 mb-3 sm:mb-4">
+              <span className="text-xs sm:text-sm font-medium text-gray-500">
                 Chapter {chapterNumber}
               </span>
               {isFree && (
@@ -147,27 +150,30 @@ export default function ChapterPageClient({
                 </span>
               )}
             </div>
-            <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+            <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 mb-3 sm:mb-4 leading-tight">
               {chapterTitle}
             </h1>
-            <p className="text-gray-600">
+            <p className="text-sm sm:text-base text-gray-600">
               from <span className="font-semibold">{bookTitle}</span>
             </p>
           </header>
 
-          <div className="prose prose-lg max-w-none">
+          {/* Content - optimized for mobile reading */}
+          <div className="prose prose-sm sm:prose-base md:prose-lg max-w-none prose-headings:scroll-mt-20 prose-p:leading-relaxed prose-img:rounded-lg">
             <ReactMarkdown remarkPlugins={[remarkGfm]}>
               {content}
             </ReactMarkdown>
           </div>
 
-          <footer className="mt-12 pt-8 border-t border-gray-200">
+          {/* Footer */}
+          <footer className="mt-8 sm:mt-12 pt-6 sm:pt-8 border-t border-gray-200">
+            {/* Mark complete button */}
             {user && !completed && (
               <div className="mb-6">
                 <button
                   onClick={handleMarkComplete}
                   disabled={markingComplete}
-                  className="w-full sm:w-auto px-6 py-3 bg-green-600 text-white font-medium rounded-lg hover:bg-green-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+                  className="w-full sm:w-auto px-6 py-3 bg-green-600 text-white font-medium rounded-lg hover:bg-green-700 active:bg-green-800 transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 touch-manipulation"
                 >
                   {markingComplete ? (
                     <>
@@ -184,16 +190,20 @@ export default function ChapterPageClient({
               </div>
             )}
 
+            {/* Completed message */}
             {completed && (
-              <div className="mb-6 p-4 bg-green-50 border border-green-200 rounded-lg text-green-700 font-medium">
-                🎉 Chapter completed! Great work!
+              <div className="mb-6 p-3 sm:p-4 bg-green-50 border border-green-200 rounded-lg">
+                <p className="text-sm sm:text-base text-green-700 font-medium">
+                  🎉 Chapter completed! Great work!
+                </p>
               </div>
             )}
 
-            <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
+            {/* Navigation buttons */}
+            <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 sm:gap-4">
               <Link
                 href={`/books/${bookSlug}`}
-                className="px-6 py-3 border border-gray-300 text-gray-700 font-medium rounded-lg hover:bg-gray-50 transition-colors"
+                className="px-6 py-3 border border-gray-300 text-gray-700 font-medium rounded-lg hover:bg-gray-50 active:bg-gray-100 transition-colors text-center touch-manipulation"
               >
                 ← Back to Chapters
               </Link>
@@ -201,7 +211,7 @@ export default function ChapterPageClient({
               {chapterNumber < totalChapters && (
                 <Link
                   href={`/books/${bookSlug}/chapter-${chapterNumber + 1}`}
-                  className="px-6 py-3 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 transition-colors"
+                  className="px-6 py-3 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 active:bg-blue-800 transition-colors text-center touch-manipulation"
                 >
                   Next Chapter →
                 </Link>

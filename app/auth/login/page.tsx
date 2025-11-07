@@ -78,7 +78,7 @@ export default function LoginPage() {
           <div className="flex items-center justify-between text-sm">
             <Link
               href="/auth/forgot-password"
-              className="text-blue-600 hover:text-blue-700 font-medium"
+              className="text-blue-600 hover:text-blue-700 font-medium touch-manipulation"
             >
               Forgot password?
             </Link>
@@ -87,7 +87,7 @@ export default function LoginPage() {
           <button
             type="submit"
             disabled={loading}
-            className="w-full py-3 px-4 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+            className="w-full py-3 px-4 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 active:bg-blue-800 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed transition-colors touch-manipulation"
           >
             {loading ? 'Signing in...' : 'Sign In'}
           </button>
@@ -95,7 +95,7 @@ export default function LoginPage() {
 
         <div className="mt-6 text-center text-sm text-gray-600">
           Don&apos;t have an account?{' '}
-          <Link href="/auth/signup" className="text-blue-600 hover:text-blue-700 font-medium">
+          <Link href="/auth/signup" className="text-blue-600 hover:text-blue-700 font-medium touch-manipulation">
             Sign up
           </Link>
         </div>
