@@ -119,7 +119,7 @@ export default function ChapterPageClient({
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gray-50 overflow-x-hidden">
       <main className="container mx-auto px-4 sm:px-6 py-4 sm:py-8 max-w-4xl">
         {/* Back button */}
         <div className="mb-4 sm:mb-6">
@@ -132,7 +132,7 @@ export default function ChapterPageClient({
         </div>
 
         {/* Main article */}
-        <article className="bg-white rounded-lg sm:rounded-xl shadow-lg p-5 sm:p-8 md:p-12">
+        <article className="bg-white rounded-lg sm:rounded-xl shadow-lg p-5 sm:p-8 md:p-12 overflow-hidden">
           {/* Header */}
           <header className="mb-6 sm:mb-8 pb-6 sm:pb-8 border-b border-gray-200">
             <div className="flex flex-wrap items-center gap-2 sm:gap-3 mb-3 sm:mb-4">
@@ -150,16 +150,16 @@ export default function ChapterPageClient({
                 </span>
               )}
             </div>
-            <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 mb-3 sm:mb-4 leading-tight">
+            <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 mb-3 sm:mb-4 leading-tight break-words">
               {chapterTitle}
             </h1>
-            <p className="text-sm sm:text-base text-gray-600">
+            <p className="text-sm sm:text-base text-gray-600 break-words">
               from <span className="font-semibold">{bookTitle}</span>
             </p>
           </header>
 
           {/* Content - optimized for mobile reading */}
-          <div className="prose prose-sm sm:prose-base md:prose-lg max-w-none prose-headings:scroll-mt-20 prose-p:leading-relaxed prose-img:rounded-lg">
+          <div className="prose prose-sm sm:prose-base md:prose-lg w-full min-w-0">
             <ReactMarkdown remarkPlugins={[remarkGfm]}>
               {content}
             </ReactMarkdown>
