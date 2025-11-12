@@ -1,19 +1,35 @@
 # Vercel Deployment Configuration Guide
 
-## Critical Steps to Fix Login Issues
+## ⚠️ CRITICAL: Fix 500 Error - Environment Variables Required
 
-### 1. Configure Vercel Environment Variables
+Your application will show a **500 error** until you add the required environment variables in Vercel.
 
-In your Vercel dashboard, go to Project Settings > Environment Variables and add:
+### 1. Configure Vercel Environment Variables (REQUIRED)
 
+**This is the #1 cause of deployment failures.** Without these, your app will not work.
+
+1. Go to **Vercel Dashboard** → Your Project → **Settings** → **Environment Variables**
+2. Add these variables:
+
+**Required Variables:**
 ```
 NEXT_PUBLIC_SUPABASE_URL=your_supabase_project_url
 NEXT_PUBLIC_SUPABASE_ANON_KEY=your_supabase_anon_key
+```
+
+**Optional (for payments):**
+```
 STRIPE_SECRET_KEY=your_stripe_secret_key
 STRIPE_WEBHOOK_SECRET=your_stripe_webhook_secret
 ```
 
-**Important:** After adding environment variables, you MUST redeploy your application for them to take effect.
+**Where to find Supabase values:**
+- Go to your Supabase Dashboard
+- Navigate to **Settings** → **API**
+- Copy **Project URL** (e.g., `https://xxxxxxxxxxxxx.supabase.co`)
+- Copy **anon/public** key (long string starting with `eyJ...`)
+
+**Important:** After adding environment variables, you MUST **redeploy** your application for them to take effect. Click the "Redeploy" button in Vercel or push a new commit.
 
 ### 2. Configure Supabase Redirect URLs
 
