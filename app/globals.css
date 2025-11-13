@@ -83,16 +83,60 @@ body {
   @apply my-8 border-gray-300;
 }
 
+/* Table wrapper for mobile scroll */
 .prose table {
-  @apply w-full border-collapse mb-4 overflow-x-auto block;
+  @apply border-collapse mb-4 text-gray-800;
+  display: block;
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
+}
+
+.prose thead,
+.prose tbody,
+.prose tr {
+  @apply block;
+}
+
+.prose th,
+.prose td {
+  @apply border border-gray-300 px-2 sm:px-4 py-2 text-xs sm:text-sm;
+  display: table-cell;
+  min-width: 100px; /* Ensure cells have minimum width */
 }
 
 .prose th {
-  @apply border border-gray-300 px-4 py-2 bg-gray-100 font-semibold text-gray-900;
+  @apply bg-gray-100 font-semibold text-gray-900;
 }
 
 .prose td {
-  @apply border border-gray-300 px-4 py-2 text-gray-800;
+  @apply text-gray-800;
+}
+
+/* Make table scrollable on mobile */
+@media (max-width: 640px) {
+  .prose table {
+    display: block;
+    max-width: 100%;
+    overflow-x: auto;
+    white-space: nowrap;
+  }
+
+  .prose thead,
+  .prose tbody {
+    display: table;
+    width: 100%;
+  }
+
+  .prose tr {
+    display: table-row;
+  }
+
+  .prose th,
+  .prose td {
+    display: table-cell;
+    white-space: normal;
+  }
 }
 
 .prose a {
@@ -104,15 +148,59 @@ body {
   @apply max-w-full h-auto;
 }
 
+.prose pre {
+  @apply max-w-full;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
 .prose pre code {
-  @apply block overflow-x-auto;
+  @apply block;
+  white-space: pre;
+  word-wrap: normal;
 }
 
 /* Ensure text wraps properly */
 .prose {
   @apply break-words;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
 }
 
 .prose * {
   @apply max-w-full;
+}
+
+/* Improve mobile reading experience */
+@media (max-width: 640px) {
+  .prose {
+    font-size: 16px; /* Prevent iOS zoom on input focus */
+    line-height: 1.7;
+  }
+
+  .prose p {
+    @apply text-base leading-relaxed;
+  }
+
+  .prose li {
+    @apply text-base;
+  }
+
+  .prose h1 {
+    @apply text-2xl;
+  }
+
+  .prose h2 {
+    @apply text-xl;
+  }
+
+  .prose h3 {
+    @apply text-lg;
+  }
+
+  /* Ensure lists don't overflow */
+  .prose ul,
+  .prose ol {
+    @apply ml-4 pr-0;
+  }
 }

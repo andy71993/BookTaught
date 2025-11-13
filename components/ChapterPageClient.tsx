@@ -120,9 +120,10 @@ export default function ChapterPageClient({
 
   return (
     <div className="min-h-screen bg-gray-50 overflow-x-hidden">
-      <main className="container mx-auto px-4 sm:px-6 py-4 sm:py-8 max-w-4xl">
-        {/* Back button */}
-        <div className="mb-4 sm:mb-6">
+      {/* Mobile: Full screen, Desktop: Container with padding */}
+      <main className="mx-auto max-w-4xl">
+        {/* Back button - only visible on desktop, hidden on mobile for full-screen experience */}
+        <div className="hidden sm:block px-4 sm:px-6 mb-4 sm:mb-6 pt-4 sm:pt-8">
           <Link
             href={`/books/${bookSlug}`}
             className="inline-flex items-center text-blue-600 hover:text-blue-700 text-sm sm:text-base touch-manipulation"
@@ -131,10 +132,20 @@ export default function ChapterPageClient({
           </Link>
         </div>
 
-        {/* Main article */}
-        <article className="bg-white rounded-lg sm:rounded-xl shadow-lg p-5 sm:p-8 md:p-12 overflow-hidden">
-          {/* Header */}
-          <header className="mb-6 sm:mb-8 pb-6 sm:pb-8 border-b border-gray-200">
+        {/* Main article - full screen on mobile, card on desktop */}
+        <article className="bg-white sm:rounded-xl sm:shadow-lg sm:mx-4 sm:mb-8 overflow-hidden min-h-screen sm:min-h-0">
+          {/* Mobile back button - inside article for better touch access */}
+          <div className="sm:hidden px-4 py-3 border-b border-gray-100 bg-gray-50">
+            <Link
+              href={`/books/${bookSlug}`}
+              className="inline-flex items-center text-blue-600 hover:text-blue-700 text-sm touch-manipulation"
+            >
+              ← Back to {bookTitle}
+            </Link>
+          </div>
+
+          {/* Header - tight padding on mobile */}
+          <header className="px-4 sm:px-8 md:px-12 pt-6 sm:pt-8 pb-6 sm:pb-8 border-b border-gray-200">
             <div className="flex flex-wrap items-center gap-2 sm:gap-3 mb-3 sm:mb-4">
               <span className="text-xs sm:text-sm font-medium text-gray-500">
                 Chapter {chapterNumber}
@@ -159,14 +170,16 @@ export default function ChapterPageClient({
           </header>
 
           {/* Content - optimized for mobile reading */}
-          <div className="prose prose-sm sm:prose-base md:prose-lg w-full min-w-0">
-            <ReactMarkdown remarkPlugins={[remarkGfm]}>
-              {content}
-            </ReactMarkdown>
+          <div className="px-4 sm:px-8 md:px-12 py-6 sm:py-8">
+            <div className="prose prose-sm sm:prose-base md:prose-lg w-full min-w-0">
+              <ReactMarkdown remarkPlugins={[remarkGfm]}>
+                {content}
+              </ReactMarkdown>
+            </div>
           </div>
 
-          {/* Footer */}
-          <footer className="mt-8 sm:mt-12 pt-6 sm:pt-8 border-t border-gray-200">
+          {/* Footer - with proper mobile padding */}
+          <footer className="px-4 sm:px-8 md:px-12 pb-6 sm:pb-8 pt-6 sm:pt-8 border-t border-gray-200 mx-4 sm:mx-0">
             {/* Mark complete button */}
             {user && !completed && (
               <div className="mb-6">
