@@ -28,23 +28,23 @@ body {
 
 /* Custom styles for markdown content */
 .prose {
-  @apply max-w-none;
+  @apply max-w-none text-gray-900;
 }
 
 .prose h1 {
-  @apply text-4xl font-bold mb-4 mt-8;
+  @apply text-4xl font-bold mb-4 mt-8 text-gray-900;
 }
 
 .prose h2 {
-  @apply text-3xl font-bold mb-3 mt-6;
+  @apply text-3xl font-bold mb-3 mt-6 text-gray-900;
 }
 
 .prose h3 {
-  @apply text-2xl font-semibold mb-2 mt-4;
+  @apply text-2xl font-semibold mb-2 mt-4 text-gray-900;
 }
 
 .prose p {
-  @apply mb-4 leading-relaxed;
+  @apply mb-4 leading-relaxed text-gray-800;
 }
 
 .prose ul {
@@ -56,15 +56,15 @@ body {
 }
 
 .prose li {
-  @apply mb-2;
+  @apply mb-2 text-gray-800;
 }
 
 .prose blockquote {
-  @apply border-l-4 border-gray-300 pl-4 italic my-4;
+  @apply border-l-4 border-gray-300 pl-4 italic my-4 text-gray-700;
 }
 
 .prose code {
-  @apply bg-gray-100 px-1 py-0.5 rounded text-sm;
+  @apply bg-gray-100 px-1 py-0.5 rounded text-sm text-gray-900;
 }
 
 .prose pre {
@@ -72,7 +72,7 @@ body {
 }
 
 .prose strong {
-  @apply font-bold;
+  @apply font-bold text-gray-900;
 }
 
 .prose em {
@@ -83,14 +83,124 @@ body {
   @apply my-8 border-gray-300;
 }
 
+/* Table wrapper for mobile scroll */
 .prose table {
-  @apply w-full border-collapse mb-4;
+  @apply border-collapse mb-4 text-gray-800;
+  display: block;
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
+}
+
+.prose thead,
+.prose tbody,
+.prose tr {
+  @apply block;
+}
+
+.prose th,
+.prose td {
+  @apply border border-gray-300 px-2 sm:px-4 py-2 text-xs sm:text-sm;
+  display: table-cell;
+  min-width: 100px; /* Ensure cells have minimum width */
 }
 
 .prose th {
-  @apply border border-gray-300 px-4 py-2 bg-gray-100 font-semibold;
+  @apply bg-gray-100 font-semibold text-gray-900;
 }
 
 .prose td {
-  @apply border border-gray-300 px-4 py-2;
+  @apply text-gray-800;
+}
+
+/* Make table scrollable on mobile */
+@media (max-width: 640px) {
+  .prose table {
+    display: block;
+    max-width: 100%;
+    overflow-x: auto;
+    white-space: nowrap;
+  }
+
+  .prose thead,
+  .prose tbody {
+    display: table;
+    width: 100%;
+  }
+
+  .prose tr {
+    display: table-row;
+  }
+
+  .prose th,
+  .prose td {
+    display: table-cell;
+    white-space: normal;
+  }
+}
+
+.prose a {
+  @apply text-blue-600 hover:text-blue-800 underline;
+}
+
+/* Prevent horizontal scroll on mobile */
+.prose img {
+  @apply max-w-full h-auto;
+}
+
+.prose pre {
+  @apply max-w-full;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.prose pre code {
+  @apply block;
+  white-space: pre;
+  word-wrap: normal;
+}
+
+/* Ensure text wraps properly */
+.prose {
+  @apply break-words;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+}
+
+.prose * {
+  @apply max-w-full;
+}
+
+/* Improve mobile reading experience */
+@media (max-width: 640px) {
+  .prose {
+    font-size: 16px; /* Prevent iOS zoom on input focus */
+    line-height: 1.7;
+  }
+
+  .prose p {
+    @apply text-base leading-relaxed;
+  }
+
+  .prose li {
+    @apply text-base;
+  }
+
+  .prose h1 {
+    @apply text-2xl;
+  }
+
+  .prose h2 {
+    @apply text-xl;
+  }
+
+  .prose h3 {
+    @apply text-lg;
+  }
+
+  /* Ensure lists don't overflow */
+  .prose ul,
+  .prose ol {
+    @apply ml-4 pr-0;
+  }
 }
