@@ -57,7 +57,16 @@ export async function getUserProgress(
     .order('last_accessed_at', { ascending: false });
 
   if (error) throw error;
-  return data || [];
+
+  // Map snake_case database columns to camelCase TypeScript interface
+  return (data || []).map((row: any) => ({
+    id: row.id,
+    userId: row.user_id,
+    bookId: row.book_id,
+    chapterId: row.chapter_id,
+    completed: row.completed,
+    lastAccessedAt: row.last_accessed_at,
+  }));
 }
 
 export async function getBookProgress(
@@ -71,7 +80,16 @@ export async function getBookProgress(
     .eq('book_id', bookId);
 
   if (error) throw error;
-  return data || [];
+
+  // Map snake_case database columns to camelCase TypeScript interface
+  return (data || []).map((row: any) => ({
+    id: row.id,
+    userId: row.user_id,
+    bookId: row.book_id,
+    chapterId: row.chapter_id,
+    completed: row.completed,
+    lastAccessedAt: row.last_accessed_at,
+  }));
 }
 
 export async function isChapterCompleted(

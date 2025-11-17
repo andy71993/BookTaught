@@ -65,8 +65,13 @@ export default function DashboardPage() {
                 new Date(a.lastAccessedAt).getTime()
             )[0];
 
+            // chapterId format is "bookId-chapterSlug", extract the chapter slug
+            const chapterSlugFromId = lastAccessed.chapterId.replace(
+              `${bookId}-`,
+              ''
+            );
             const lastChapter = book.chapters.find(
-              (c) => c.slug === lastAccessed.chapterId
+              (c) => c.slug === chapterSlugFromId
             );
 
             return {

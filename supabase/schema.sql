@@ -91,11 +91,13 @@ CREATE POLICY "Anyone can view chapters"
   USING (TRUE);
 
 -- User Progress table
+-- Note: book_id and chapter_id are TEXT (slugs) to match git-based content in books.json
+-- This avoids foreign key constraints since books/chapters are not stored in database
 CREATE TABLE public.user_progress (
   id UUID DEFAULT uuid_generate_v4() PRIMARY KEY,
   user_id UUID REFERENCES public.profiles(id) ON DELETE CASCADE NOT NULL,
-  book_id UUID REFERENCES public.books(id) ON DELETE CASCADE NOT NULL,
-  chapter_id UUID REFERENCES public.chapters(id) ON DELETE CASCADE NOT NULL,
+  book_id TEXT NOT NULL,
+  chapter_id TEXT NOT NULL,
   completed BOOLEAN DEFAULT FALSE,
   last_accessed_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
   completed_at TIMESTAMP WITH TIME ZONE,
